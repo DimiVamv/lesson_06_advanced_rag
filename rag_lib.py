@@ -2,7 +2,7 @@
 rag_lib.py — Τα δομικά κομμάτια του Advanced RAG.
 
 Χτίζει πάνω στο μάθημα 4: ChromaDB + SentenceTransformer('all-MiniLM-L6-v2')
-+ ClaudeClient.ask(). Εδώ προσθέτουμε: chunking με overlap, query rewriting,
++ ClaudeClient.ask(). Εδώ προσθέτουμε chunking με overlap, query rewriting,
 re-ranking με cross-encoder, config-driven retrieval και evaluation.
 """
 
@@ -25,7 +25,7 @@ def get_claude() -> ClaudeClient:
 
 
 # ===========================================================================
-# 1) CHUNKING — overlap=0 σημαίνει «fixed» όπως στο μάθημα 4
+# 1) Chunking — Όταν έχουμε overlap=0 είναι σταθερό ή «fixed» όπως στο μάθημα 4 - Διαφάνεια 15
 # ===========================================================================
 def fixed_chunks(text: str, size: int = 500) -> list[str]:
     return [text[i:i + size] for i in range(0, len(text), size) if text[i:i + size].strip()]
@@ -38,7 +38,7 @@ def overlap_chunks(text: str, size: int = 500, overlap: int = 100) -> list[str]:
 
 
 # ===========================================================================
-# 2) STORE & RETRIEVE (ChromaDB, in-memory για το μάθημα)
+# 2) Store & Retrieve (ChromaDB, in-memory για το μάθημα)
 # ===========================================================================
 def build_collection(chunks: list[str], name: str = "docs"):
     client = chromadb.Client()
@@ -62,7 +62,7 @@ def retrieve(col, question: str, k: int = 3) -> list[str]:
 
 
 # ===========================================================================
-# 3) QUERY REWRITING
+# 3) Query Rewriting - Διαφάνεια 18
 # ===========================================================================
 def rewrite_query(question: str) -> str:
     system = (
@@ -73,7 +73,7 @@ def rewrite_query(question: str) -> str:
 
 
 # ===========================================================================
-# 4) RE-RANKING — φέρε πολλά, ξαναβαθμολόγησε, κράτα λίγα
+# 4) Re-ranking — Λήψη πολλών, επαναβαθμολόγηση, διατήρηση λιγότερων — Διαφάνεια 20 
 # ===========================================================================
 def rerank(question: str, docs: list[str], top_n: int = 3) -> list[str]:
     pairs = [(question, d) for d in docs]
@@ -83,7 +83,7 @@ def rerank(question: str, docs: list[str], top_n: int = 3) -> list[str]:
 
 
 # ===========================================================================
-# 5) PIPELINES — απλά (για τα μαθήματα 02-05)
+# 5) Retrieval Pipelines — απλά (για τα μαθήματα 02-05)
 # ===========================================================================
 def naive_retrieval(col, question: str, k: int = 3) -> list[str]:
     return retrieve(col, question, k=k)
@@ -101,7 +101,7 @@ def answer(question: str, context_chunks: list[str]) -> str:
 
 
 # ===========================================================================
-# 6) CONFIG-DRIVEN retrieval — ΓΙΑ ΤΟ ΕΡΓΑΣΤΗΡΙΟ (ablation & challenge)
+# 6) Configurable retrieval — Πείραμα & Challenge
 #    Ένας «διακόπτης» για κάθε τεχνική, ώστε να τις δοκιμάζουμε μία-μία.
 # ===========================================================================
 def configurable_retrieve(col, question, *, use_rewrite, k_first, top_n, use_rerank):
@@ -114,7 +114,7 @@ def configurable_retrieve(col, question, *, use_rewrite, k_first, top_n, use_rer
 
 
 # ===========================================================================
-# 7) EVALUATION — Hit Rate@k & MRR με keyword matching
+# 7) Evaluation — Hit Rate at k & MRR με keyword matching
 # ===========================================================================
 def keyword_score(retrieved: list[str], keyword: str) -> tuple[int, float]:
     for rank, doc in enumerate(retrieved, start=1):

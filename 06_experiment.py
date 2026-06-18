@@ -20,11 +20,11 @@ from sample_data import SAMPLE_TEXT, GOLDEN
 #  👇  ΟΙ ΡΥΘΜΙΣΕΙΣ ΣΟΥ — άλλαξε εδώ και ξανατρέξε
 # ===========================================================================
 CHUNK_SIZE  = 200      # μέγεθος κάθε chunk (χαρακτήρες)
-OVERLAP     = 0        # επικάλυψη μεταξύ chunks (0 = fixed, δοκίμασε 60)
-USE_REWRITE = False    # query rewriting με το LLM;  (χρειάζεται API key)
-USE_RERANK  = False    # re-ranking με cross-encoder;
-K_FIRST     = 8        # πόσα chunks φέρνουμε πριν το rerank
-TOP_N       = 3        # πόσα κρατάμε τελικά ως context
+OVERLAP     = 50        # επικάλυψη μεταξύ chunks (0 = fixed, δοκίμασε 60)
+USE_REWRITE = True    # query rewriting με το LLM;  (χρειάζεται API key)
+USE_RERANK  = True    # re-ranking με cross-encoder;
+K_FIRST     = 5        # πόσα chunks φέρνουμε πριν το rerank
+TOP_N       = 2        # πόσα κρατάμε τελικά ως context
 # ===========================================================================
 
 
@@ -37,6 +37,22 @@ def main():
         top_n=TOP_N, use_rerank=USE_RERANK)
 
     hit, mrr = evaluate(col, GOLDEN, retriever)
+
+    import csv
+    from datetime import datetime
+
+    # Αποθήκευση πειράματος σε CSV
+    log_file = "experiments.csv"
+    with open(log_file, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        # Γράψε headers την πρώτη φορά
+        if f.tell() == 0:
+            writer.writerow(["timestamp", "chunk_size", "overlap", "rewrite", "rerank", "k_first", "top_n", "hit_rate", "mrr"])
+        writer.writerow([
+            datetime.now().isoformat(),
+            CHUNK_SIZE, OVERLAP, USE_REWRITE, USE_RERANK, K_FIRST, TOP_N,
+            f"{hit:.4f}", f"{mrr:.4f}"
+        ])
 
     print("─" * 44)
     print(f"  chunks={len(chunks)}  size={CHUNK_SIZE}  overlap={OVERLAP}")
