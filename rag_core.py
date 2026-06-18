@@ -14,7 +14,7 @@ rag_core.py — Συνδέει το Streamlit app με τη βιβλιοθήκη
 
 from pathlib import Path
 import fitz  # PyMuPDF
-from . import rag  # η βιβλιοθήκη μας (οι συναρτήσεις του μαθήματος 4)
+import rag # η βιβλιοθήκη μας (οι συναρτήσεις του μαθήματος 4)
 
 DB_PATH = str(Path(__file__).parent / "chroma_db")
 
