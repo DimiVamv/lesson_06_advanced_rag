@@ -13,7 +13,7 @@ rag_core.py — Συνδέει το Streamlit app με τη βιβλιοθήκη
 """
 
 from pathlib import Path
-import fitz  # PyMuPDF
+import pymupdf #fitz  # PyMuPDF
 from ai_python_lab import rag  # η βιβλιοθήκη μας (οι συναρτήσεις του μαθήματος 4)
 
 DB_PATH = str(Path(__file__).parent / "chroma_db")
@@ -29,7 +29,7 @@ def load_and_chunk_upload(file_bytes: bytes, filename: str, chunk_size: int = 50
     διαβάζουμε εδώ και μετά καλούμε το ΙΔΙΟ rag.chunk_text() της βιβλιοθήκης.
     """
     if filename.lower().endswith(".pdf"):
-        doc = fitz.open(stream=file_bytes, filetype="pdf")
+        doc = pymupdf.open(stream=file_bytes, filetype="pdf")
         text = "".join(page.get_text() for page in doc)
     else:
         text = file_bytes.decode("utf-8", errors="ignore")
