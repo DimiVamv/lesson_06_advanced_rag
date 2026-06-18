@@ -19,7 +19,7 @@ from functools import lru_cache
 import chromadb
 from sentence_transformers import SentenceTransformer
 
-from ai_python_lab.claude_client import ClaudeClient
+from claude_client import ClaudeClient
 
 EMBED_MODEL = "all-MiniLM-L6-v2"
 CLAUDE_MODEL = "claude-haiku-4-5-20251001"

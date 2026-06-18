@@ -1,5 +1,5 @@
-from ai_python_lab.claude_client import ClaudeClient
-from ai_python_lab.utils import is_exit_command, print_title
+from claude_client import ClaudeClient
+from utils import is_exit_command, print_title
 
 def main():
     print_title("Welcome to the Claude Assistant Command Line Interface (CLI)!")

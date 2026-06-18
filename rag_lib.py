@@ -8,7 +8,7 @@ re-ranking με cross-encoder, config-driven retrieval και evaluation.
 
 import chromadb
 from sentence_transformers import SentenceTransformer, CrossEncoder
-from ai_python_lab.claude_client import ClaudeClient
+from claude_client import ClaudeClient
 
 # --- Μοντέλα (φορτώνονται μία φορά) ---------------------------------------
 embedder = SentenceTransformer("all-MiniLM-L6-v2")              # ίδιο με μάθημα 4
