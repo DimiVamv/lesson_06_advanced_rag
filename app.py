@@ -2,9 +2,9 @@
 app.py — Το AI app του μαθήματος 5, έτοιμο για deployment.
 
 Στο μάθημα 6 δεν τροποποιούμε τον κώδικα του app. Αυτό που κάνουμε:
-  • το ανεβάζουμε στο Streamlit Community Cloud
-  • χρησιμοποιούμε st.secrets για το ANTHROPIC_API_KEY
-  • στο Μέρος Β' βελτιώνουμε το RAG και μετράμε τη βελτίωση (offline)
+  - το ανεβάζουμε στο Streamlit Community Cloud
+  - χρησιμοποιούμε st.secrets για το ANTHROPIC_API_KEY
+  - στο Μέρος Β' βελτιώνουμε το RAG και μετράμε τη βελτίωση (offline)
 """
 
 import streamlit as st
