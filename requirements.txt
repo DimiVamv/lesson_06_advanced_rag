@@ -1,4 +1,4 @@
--e git+https://github.com/DimiVamv/test_project.git@1b2868efdcea17606d4feb127c02e7615b7b72f3#egg=ai_python_lab
+#-e git+https://github.com/DimiVamv/test_project.git@1b2868efdcea17606d4feb127c02e7615b7b72f3#egg=ai_python_lab
 altair==6.1.0
 annotated-doc==0.0.4
 annotated-types==0.7.0
