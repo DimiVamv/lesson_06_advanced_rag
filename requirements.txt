@@ -4,3 +4,4 @@ python-dotenv>=1.0
 chromadb>=0.5
 sentence-transformers>=3.0
 PyPDF2>=3.0
+PyMuPDF>=1.22
